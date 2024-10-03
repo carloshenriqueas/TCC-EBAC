@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clonar repositório') {
+            steps {
+                git branch: 'main', url: 'https://github.com/carloshenriqueas/TCC-EBAC/tree/910cc9eb92e10b7ab4cf957f3f6c886b5633c22b/UI'
+            }
+        }
+        
+        stage('Instalar dependências') {
+            steps {
+                powershell 'npm install'
+            }
+        }
+        
+        stage('Executar Testes') {
+            steps {
+                powershell 'npm run cy:run'
+            }
+        }
+    }
+}
